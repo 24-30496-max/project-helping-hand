@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Welcome to Project Helping Hand</h1>
+    <h2>Listings</h2>
+    {% for listing in listings %}
+        <article>
+            <h3>{{ listing.title }}</h3>
+            <p><strong>Category:</strong> {{ listing.category }}</p>
+            <p>{{ listing.description }}</p>
+            <p><small>by {{ listing.author.username }}</small></p>
+        </article>
+    {% else %}
+        <p>No listings yet. Be the first to create one!</p>
+    {% endfor %}
+{% endblock %}
