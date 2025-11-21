@@ -1,15 +1,13 @@
-from flask import Flask, render_template, redirect, url_for, flash
+from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from flask_bcrypt import Bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # App configuration
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key_here' # Replace with a real secret key
+app.config['SECRET_KEY'] = 'your_secret_key_here'  # Replace with a real secret key
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
@@ -17,7 +15,7 @@ login_manager.login_view = 'login'
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
+    password = db.Column(db.String(128), nullable=False)
     location = db.Column(db.String(100), nullable=True)
     listings = db.relationship('Listing', backref='author', lazy=True)
 
