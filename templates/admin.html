@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - The Helping Hand{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="section-title">
+        <h2>🛠️ Admin Dashboard</h2>
+        <p>Welcome, <strong>{{ current_user.username }}</strong>! Manage users and monitor platform activity.</p>
+    </div>
+
+    <!-- statistics -->
+    <div class="admin-grid">
+        <div class="stat-card">
+            <div class="number">{{ admins|length }}</div>
+            <div class="label">Total Admins</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">{{ users|length }}</div>
+            <div class="label">Total Users</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">{{ listings|length }}</div>
+            <div class="label">Total Listings</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">{{ feedbacks|length }}</div>
+            <div class="label">Total Feedbacks</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">{{ listings|selectattr('listing_type', 'equalto', 'Offering')|list|length }}</div>
+            <div class="label">Offerings</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">{{ listings|selectattr('listing_type', 'equalto', 'Requesting')|list|length }}</div>
+            <div class="label">Requests</div>
+        </div>
+    </div>
+
+    <!-- Admin Accounts Table -->
+    <h3 style="margin: 2rem 0 1rem;">🔐 Admin Accounts</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+        <em>Admin accounts can only be added by programmers in the code.</em>
+    </p>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Created</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for admin in admins %}
+                <tr>
+                    <td>{{ admin.id }}</td>
+                    <td>
+                        {{ admin.username }}
+                        {% if admin.id == current_user.id %}
+                            <span style="color: var(--primary-color);">(You)</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ admin.created_at.strftime('%Y-%m-%d') }}</td>
+                    <td><span style="color: var(--success-color);">● Active</span></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Users Table -->
+    <h3 style="margin: 2rem 0 1rem;">👥 Registered Users</h3>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Location</th>
+                <th>Listings</th>
+                <th>Avg Rating</th>
+                <th>Joined</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td><a href="{{ url_for('user_profile', id=user.id) }}">{{ user.username }}</a></td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.location or 'N/A' }}</td>
+                    <td>{{ user.listings|length }}</td>
+                    <td>
+                        {% if user.average_rating %}
+                            ⭐ {{ user.average_rating }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>{{ user.created_at.strftime('%Y-%m-%d') }}</td>
+                    <td>
+                        <a href="{{ url_for('delete_user', id=user.id) }}" 
+                           class="btn btn-danger" 
+                           style="padding: 0.25rem 0.5rem; font-size: 0.8rem;"
+                           onclick="return confirm('Are you sure you want to delete user {{ user.username }}? This will also delete all their listings and feedbacks.');">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8" style="text-align: center;">No users registered yet.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Listings Table -->
+    <h3 style="margin: 2rem 0 1rem;">📋 All Listings</h3>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Type</th>
+                <th>Author</th>
+                <th>Rating</th>
+                <th>Feedbacks</th>
+                <th>Editable</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for listing in listings %}
+                <tr>
+                    <td>{{ listing.id }}</td>
+                    <td><a href="{{ url_for('listing_detail', id=listing.id) }}">{{ listing.title }}</a></td>
+                    <td>{{ listing.category }}</td>
+                    <td>{{ listing.listing_type }}</td>
+                    <td>{{ listing.author.username }}</td>
+                    <td>
+                        {% if listing.average_rating %}
+                            ⭐ {{ listing.average_rating }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>{{ listing.feedbacks|length }}</td>
+                    <td>
+                        {% if listing.can_edit %}
+                            <span style="color: var(--success-color);">✓ Yes</span>
+                        {% else %}
+                            <span style="color: var(--error-color);">🔒 Locked</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('delete_listing', id=listing.id) }}" 
+                           class="btn btn-danger" 
+                           style="padding: 0.25rem 0.5rem; font-size: 0.8rem;"
+                           onclick="return confirm('Are you sure you want to delete this listing?');">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9" style="text-align: center;">No listings yet.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Recent Feedbacks Table -->
+    <h3 style="margin: 2rem 0 1rem;">⭐ Recent Feedbacks</h3>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Listing</th>
+                <th>Reviewer</th>
+                <th>Rating</th>
+                <th>Comment</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for feedback in feedbacks %}
+                <tr>
+                    <td>{{ feedback.id }}</td>
+                    <td><a href="{{ url_for('listing_detail', id=feedback.listing.id) }}">{{ feedback.listing.title[:30] }}{% if feedback.listing.title|length > 30 %}...{% endif %}</a></td>
+                    <td>{{ feedback.reviewer.username }}</td>
+                    <td>{% for i in range(feedback.rating) %}⭐{% endfor %}</td>
+                    <td>{{ (feedback.comment[:50] ~ '...') if feedback.comment and feedback.comment|length > 50 else (feedback.comment or 'N/A') }}</td>
+                    <td>{{ feedback.created_at.strftime('%Y-%m-%d') }}</td>
+                    <td>
+                        <a href="{{ url_for('delete_feedback', id=feedback.id) }}" 
+                           class="btn btn-danger" 
+                           style="padding: 0.25rem 0.5rem; font-size: 0.8rem;"
+                           onclick="return confirm('Are you sure you want to delete this feedback?');">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7" style="text-align: center;">No feedbacks yet.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

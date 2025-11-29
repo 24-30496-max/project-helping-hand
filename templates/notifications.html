@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Notifications - The Helping Hand{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="section-title">
+        <h2>🔔 Notifications</h2>
+        <p>Stay updated on your listings</p>
+    </div>
+
+    <!-- action buttons -->
+    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+        {% if notifications %}
+            <a href="{{ url_for('mark_all_notifications_read') }}" class="btn btn-secondary">✓ Mark All as Read</a>
+            <a href="{{ url_for('clear_all_notifications') }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to clear all notifications?');">🗑️ Clear All</a>
+        {% endif %}
+    </div>
+
+    <!-- notifications list -->
+    {% if notifications %}
+        <div class="notifications-list">
+            {% for notification in notifications %}
+                <div class="notification-card {% if not notification.is_read %}unread{% endif %}" 
+                     style="background: {% if notification.is_read %}var(--card-background){% else %}#e3f2fd{% endif %}; 
+                            padding: 1.5rem; 
+                            border-radius: var(--border-radius); 
+                            box-shadow: var(--box-shadow); 
+                            margin-bottom: 1rem;
+                            border-left: 4px solid {% if notification.notification_type == 'interest' %}var(--secondary-color){% elif notification.notification_type == 'feedback' %}var(--primary-color){% else %}var(--accent-color){% endif %};">
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+                        <div style="flex: 1;">
+                            <!-- notification type badge -->
+                            <span class="notification-type" style="
+                                display: inline-block;
+                                padding: 0.25rem 0.75rem;
+                                border-radius: 20px;
+                                font-size: 0.8rem;
+                                font-weight: 600;
+                                margin-bottom: 0.5rem;
+                                {% if notification.notification_type == 'interest' %}
+                                    background: #fff3e0; color: #e65100;
+                                {% elif notification.notification_type == 'feedback' %}
+                                    background: #e8f5e9; color: #2e7d32;
+                                {% else %}
+                                    background: #e3f2fd; color: #1565c0;
+                                {% endif %}
+                            ">
+                                {% if notification.notification_type == 'interest' %}
+                                    💡 Interest
+                                {% elif notification.notification_type == 'feedback' %}
+                                    ⭐ Feedback
+                                {% else %}
+                                    📬 {{ notification.notification_type|capitalize }}
+                                {% endif %}
+                            </span>
+                            
+                            {% if not notification.is_read %}
+                                <span style="background: var(--error-color); color: white; padding: 0.15rem 0.5rem; border-radius: 10px; font-size: 0.75rem; margin-left: 0.5rem;">NEW</span>
+                            {% endif %}
+
+                            <!-- message -->
+                            <p style="margin: 0.5rem 0; white-space: pre-line;">{{ notification.message }}</p>
+                            
+                            <!-- sender & time -->
+                            <div style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.5rem;">
+                                {% if notification.sender %}
+                                    From: <a href="{{ url_for('user_profile', id=notification.sender.id) }}">{{ notification.sender.username }}</a> •
+                                {% endif %}
+                                {{ notification.created_at.strftime('%b %d, %Y at %I:%M %p') }}
+                            </div>
+                        </div>
+                        
+                        <!-- actions -->
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            {% if notification.related_listing %}
+                                <a href="{{ url_for('mark_notification_read', id=notification.id) }}" class="btn btn-primary" style="font-size: 0.85rem;">View Listing</a>
+                            {% endif %}
+                            {% if not notification.is_read %}
+                                <a href="{{ url_for('mark_notification_read', id=notification.id) }}" class="btn btn-secondary" style="font-size: 0.85rem;">Mark Read</a>
+                            {% endif %}
+                            <a href="{{ url_for('delete_notification', id=notification.id) }}" class="btn btn-danger" style="font-size: 0.85rem;" onclick="return confirm('Delete this notification?');">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="text-align: center; padding: 3rem; background: var(--card-background); border-radius: var(--border-radius);">
+            <p style="font-size: 3rem; margin-bottom: 1rem;">🔔</p>
+            <p style="color: var(--text-secondary);">No notifications yet.</p>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">You'll be notified when someone shows interest in your listings or leaves feedback.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

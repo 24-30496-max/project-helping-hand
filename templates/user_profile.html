@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.full_name }}'s Profile - The Helping Hand{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- profile header -->
+    <div class="profile-header" style="background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); color: white; padding: 2rem; border-radius: var(--border-radius); margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <h1 style="margin: 0;">👤 {{ user. full_name }}</h1>
+                <p style="opacity: 0.9; margin: 0.25rem 0;">@{{ user.username }}</p>
+                {% if user.location %}
+                    <p style="margin: 0.5rem 0;"><span style="opacity: 0.8;">📍</span> {{ user. location }}</p>
+                {% endif %}
+                <p style="margin: 0.5rem 0; font-size: 0.9rem; opacity: 0.8;">Member since {{ user.created_at.strftime('%B %Y') }}</p>
+            </div>
+            
+            {% if current_user.is_authenticated and not current_user.is_admin and current_user.id == user.id %}
+                <a href="{{ url_for('edit_profile') }}" class="btn btn-secondary">✏️ Edit Profile</a>
+            {% endif %}
+        </div>
+        
+        <!-- user stats -->
+        <div style="display: flex; gap: 1rem; margin-top: 1. 5rem; flex-wrap: wrap;">
+            <div class="stat" style="background: rgba(255,255,255,0.2); padding: 1rem 1.5rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 1.5rem; font-weight: bold;">{{ user.listings|length }}</div>
+                <div style="font-size: 0.9rem;">Listings</div>
+            </div>
+            <div class="stat" style="background: rgba(255,255,255,0.2); padding: 1rem 1.5rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 1.5rem; font-weight: bold;">
+                    {% if user.average_rating %}
+                        ⭐ {{ user.average_rating }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </div>
+                <div style="font-size: 0.9rem;">Avg Rating</div>
+            </div>
+            <div class="stat" style="background: rgba(255,255,255,0.2); padding: 1rem 1.5rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 1.5rem; font-weight: bold;">{{ user.total_feedbacks_received }}</div>
+                <div style="font-size: 0.9rem;">Reviews</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+        <!-- left column - contact info & bio -->
+        <div>
+            <!-- contact information -->
+            <div class="profile-card" style="background: var(--card-background); padding: 1.5rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow); margin-bottom: 1. 5rem;">
+                <h3 style="margin-top: 0; color: var(--primary-dark);">📬 Contact Information</h3>
+                
+                <div class="contact-item" style="margin: 1rem 0;">
+                    <p style="margin: 0; color: var(--text-secondary); font-size: 0.85rem;">Email</p>
+                    <p style="margin: 0. 25rem 0 0 0;"><a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+                </div>
+                
+                {% if user.phone_number %}
+                <div class="contact-item" style="margin: 1rem 0;">
+                    <p style="margin: 0; color: var(--text-secondary); font-size: 0. 85rem;">Phone</p>
+                    <p style="margin: 0.25rem 0 0 0;"><a href="tel:{{ user.phone_number }}">{{ user. phone_number }}</a></p>
+                </div>
+                {% endif %}
+                
+                {% if user.city %}
+                <div class="contact-item" style="margin: 1rem 0;">
+                    <p style="margin: 0; color: var(--text-secondary); font-size: 0.85rem;">City</p>
+                    <p style="margin: 0.25rem 0 0 0;">{{ user.city }}</p>
+                </div>
+                {% endif %}
+                
+                {% if user. address %}
+                <div class="contact-item" style="margin: 1rem 0;">
+                    <p style="margin: 0; color: var(--text-secondary); font-size: 0. 85rem;">Address</p>
+                    <p style="margin: 0.25rem 0 0 0;">{{ user.address }}</p>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Bio -->
+            {% if user.bio %}
+            <div class="profile-card" style="background: var(--card-background); padding: 1.5rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+                <h3 style="margin-top: 0; color: var(--primary-dark);">📝 About Me</h3>
+                <p style="margin: 0; line-height: 1.6;">{{ user.bio }}</p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- right column - services & items -->
+        <div>
+            <!-- services offered -->
+            <div class="profile-section" style="margin-bottom: 2rem;">
+                <h3 style="color: var(--primary-dark); border-bottom: 2px solid var(--primary-light); padding-bottom: 0.5rem;">
+                    🛠️ Services Offered
+                </h3>
+                
+                {% if user.services_offered %}
+                    <div class="listing-pills" style="display: flex; flex-wrap: wrap; gap: 0. 5rem; margin-top: 1rem;">
+                        {% for listing in user.services_offered %}
+                            <a href="{{ url_for('listing_detail', id=listing.id) }}" 
+                               class="listing-pill" 
+                               style="background: #e8f5e9; color: var(--primary-dark); padding: 0.5rem 1rem; border-radius: 20px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                                {{ listing.title }}
+                                {% if listing.average_rating %}
+                                    <span style="background: white; padding: 0.1rem 0.4rem; border-radius: 10px; font-size: 0.8rem;">⭐ {{ listing.average_rating }}</span>
+                                {% endif %}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p style="color: var(--text-secondary); margin-top: 1rem;">No services offered yet.</p>
+                {% endif %}
+            </div>
+            
+            <!-- services needed -->
+            <div class="profile-section" style="margin-bottom: 2rem;">
+                <h3 style="color: var(--primary-dark); border-bottom: 2px solid var(--primary-light); padding-bottom: 0.5rem;">
+                    🔍 Services Needed
+                </h3>
+                
+                {% if user.services_needed %}
+                    <div class="listing-pills" style="display: flex; flex-wrap: wrap; gap: 0. 5rem; margin-top: 1rem;">
+                        {% for listing in user.services_needed %}
+                            <a href="{{ url_for('listing_detail', id=listing.id) }}" 
+                               class="listing-pill" 
+                               style="background: #fff3e0; color: #e65100; padding: 0.5rem 1rem; border-radius: 20px; text-decoration: none;">
+                                {{ listing.title }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p style="color: var(--text-secondary); margin-top: 1rem;">No services requested. </p>
+                {% endif %}
+            </div>
+            
+            <!-- items offered (exchangeable items) -->
+            <div class="profile-section" style="margin-bottom: 2rem;">
+                <h3 style="color: var(--primary-dark); border-bottom: 2px solid var(--primary-light); padding-bottom: 0.5rem;">
+                    📦 Items Available for Exchange
+                </h3>
+                
+                {% if user. items_offered %}
+                    <div class="items-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        {% for listing in user.items_offered %}
+                            <a href="{{ url_for('listing_detail', id=listing.id) }}" 
+                               class="item-card" 
+                               style="background: var(--card-background); padding: 1rem; border-radius: 8px; box-shadow: var(--box-shadow); text-decoration: none; color: inherit; display: block;">
+                                <h4 style="margin: 0 0 0.5rem 0; color: var(--primary-dark);">{{ listing.title }}</h4>
+                                <p style="margin: 0; font-size: 0.85rem; color: var(--text-secondary);">{{ listing. description[:60] }}{% if listing.description|length > 60 %}...{% endif %}</p>
+                                {% if listing.average_rating %}
+                                    <p style="margin: 0. 5rem 0 0 0; font-size: 0.85rem;">⭐ {{ listing.average_rating }}/5</p>
+                                {% endif %}
+                                {% if listing.interest_count > 0 %}
+                                    <p style="margin: 0.25rem 0 0 0; font-size: 0.8rem; color: var(--secondary-color);">💡 {{ listing.interest_count }} interested</p>
+                                {% endif %}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p style="color: var(--text-secondary); margin-top: 1rem;">No items available for exchange.</p>
+                {% endif %}
+            </div>
+            
+            <!-- items needed -->
+            <div class="profile-section" style="margin-bottom: 2rem;">
+                <h3 style="color: var(--primary-dark); border-bottom: 2px solid var(--primary-light); padding-bottom: 0. 5rem;">
+                    🔎 Items Needed
+                </h3>
+                
+                {% if user.items_needed %}
+                    <div class="listing-pills" style="display: flex; flex-wrap: wrap; gap: 0. 5rem; margin-top: 1rem;">
+                        {% for listing in user. items_needed %}
+                            <a href="{{ url_for('listing_detail', id=listing.id) }}" 
+                               class="listing-pill" 
+                               style="background: #fce4ec; color: #c2185b; padding: 0.5rem 1rem; border-radius: 20px; text-decoration: none;">
+                                {{ listing.title }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p style="color: var(--text-secondary); margin-top: 1rem;">No items requested.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

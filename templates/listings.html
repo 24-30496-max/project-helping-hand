@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Browse Listings - The Helping Hand{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="section-title">
+        <h2>📋 Browse Listings</h2>
+        <p>Find skills, services, and items in your community</p>
+    </div>
+
+    <!-- filter bar -->
+    <form class="filter-bar" method="GET" action="{{ url_for('listings') }}">
+        <input type="text" name="search" placeholder="🔍 Search listings..." value="{{ request.args.get('search', '') }}">
+        <select name="category">
+            <option value="">All Categories</option>
+            <option value="Skills & Services" {% if request.args.get('category') == 'Skills & Services' %}selected{% endif %}>Skills & Services</option>
+            <option value="Items & Resources" {% if request.args.get('category') == 'Items & Resources' %}selected{% endif %}>Items & Resources</option>
+        </select>
+        <select name="type">
+            <option value="">All Types</option>
+            <option value="Offering" {% if request.args.get('type') == 'Offering' %}selected{% endif %}>Offering</option>
+            <option value="Requesting" {% if request.args.get('type') == 'Requesting' %}selected{% endif %}>Requesting</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <!-- listings grid -->
+    {% if listings %}
+        <div class="cards-grid">
+            {% for listing in listings %}
+                <div class="card">
+                    <div class="card-header">
+                        <span class="category">{{ listing.category }}</span>
+                        <span class="type">{{ listing.listing_type }}</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>{{ listing.title }}</h3>
+                        <p>{{ listing.description[:100] }}{% if listing.description|length > 100 %}...{% endif %}</p>
+                        <a href="{{ url_for('listing_detail', id=listing.id) }}" class="btn btn-primary">View Details</a>
+                    </div>
+                    <div class="card-footer">
+                        <span class="author">By {{ listing.author.username }}</span>
+                        {% if listing.location %}
+                            <span class="location">📍 {{ listing.location }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="text-align: center; color: var(--text-secondary); padding: 3rem;">No listings found. Try adjusting your filters or create a new listing!</p>
+    {% endif %}
+</div>
+{% endblock %}

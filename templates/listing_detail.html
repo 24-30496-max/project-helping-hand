@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ listing.title }} - The Helping Hand{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="listing-detail">
+        <div class="header">
+            <h1>{{ listing.title }}</h1>
+            <div class="badges">
+                <span class="badge">{{ listing.category }}</span>
+                <span class="badge">{{ listing.listing_type }}</span>
+                {% if listing.average_rating %}
+                    <span class="badge">⭐ {{ listing.average_rating }}/5</span>
+                {% endif %}
+                {% if listing.interest_count > 0 %}
+                    <span class="badge">💡 {{ listing.interest_count }} interested</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="content">
+            <div class="meta">
+                <span>👤 Posted by <a href="{{ url_for('user_profile', id=listing.author.id) }}" style="color: white; text-decoration: underline;">{{ listing.author.username }}</a></span>
+                <span>📅 {{ listing.created_at.strftime('%B %d, %Y') }}</span>
+                {% if listing.location %}
+                    <span>📍 {{ listing.location }}</span>
+                {% endif %}
+            </div>
+            
+            <!-- edit lock notice -->
+            {% if current_user.is_authenticated and not current_user.is_admin and listing.user_id == current_user.id %}
+                {% if listing.has_feedback %}
+                    <div style="background: #fff3e0; border: 1px solid #ff9800; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                        🔒 <strong>Editing Locked:</strong> This listing has received feedback and can no longer be edited. You can still delete it if needed.
+                    </div>
+                {% endif %}
+            {% endif %}
+            
+            <div class="description">
+                <h3>Description</h3>
+                <p>{{ listing.description }}</p>
+            </div>
+
+            {% if listing.tags %}
+                <div style="margin-bottom: 2rem;">
+                    <h4>Tags</h4>
+                    <p>{{ listing.tags }}</p>
+                </div>
+            {% endif %}
+
+            <div class="contact-section">
+                <h3>📬 Contact Information</h3>
+                <p>Interested? Reach out to <a href="{{ url_for('user_profile', id=listing.author.id) }}"><strong>{{ listing.author.username }}</strong></a> to get started!</p>
+                {% if listing.author.email %}
+                    <p>Email: {{ listing.author.email }}</p>
+                {% endif %}
+            </div>
+
+            <!-- action buttons -->
+            <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="{{ url_for('listings') }}" class="btn btn-secondary">← Back to Listings</a>
+                
+                {% if current_user.is_authenticated and not current_user.is_admin and current_user.id == listing.user_id %}
+                    <!-- owner actions -->
+                    {% if listing.can_edit %}
+                        <a href="{{ url_for('edit_listing', id=listing.id) }}" class="btn btn-primary">✏️ Edit Listing</a>
+                    {% endif %}
+                    <a href="{{ url_for('view_interests', id=listing.id) }}" class="btn btn-secondary">
+                        💡 View Interests ({{ listing.interest_count }})
+                    </a>
+                    <a href="{{ url_for('delete_listing', id=listing.id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this listing?');">🗑️ Delete Listing</a>
+                {% endif %}
+                
+                {% if current_user.is_authenticated and current_user.is_admin %}
+                    <a href="{{ url_for('delete_listing', id=listing.id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this listing?');">🗑️ Delete (Admin)</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- interest section (for non-owners) -->
+    {% if current_user.is_authenticated and not current_user.is_admin and current_user.id != listing.user_id %}
+        <div class="interest-section" style="margin-top: 2rem; background: var(--card-background); padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+            <h2>💡 Interested in This Listing?</h2>
+            
+            {% if user_has_shown_interest %}
+                <div style="background: #e8f5e9; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                    ✅ You have already shown interest in this listing. The owner has been notified!
+                </div>
+            {% else %}
+                <p style="color: var(--text-secondary);">Let the owner know you're interested! They'll receive a notification with your contact information.</p>
+                <form method="POST" action="{{ url_for('show_interest', id=listing.id) }}" style="margin-top: 1rem;">
+                    <div class="form-group">
+                        <label for="message">Add a Message (Optional)</label>
+                        <textarea id="message" name="message" placeholder="Hi! I'm interested in your listing. I'd like to know more about..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">💡 I'm Interested!</button>
+                </form>
+            {% endif %}
+        </div>
+    {% elif not current_user.is_authenticated %}
+        <div class="interest-section" style="margin-top: 2rem; background: var(--card-background); padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+            <h2>💡 Interested in This Listing?</h2>
+            <p><a href="{{ url_for('login') }}">Login</a> or <a href="{{ url_for('register') }}">Register</a> to show your interest and contact the owner.</p>
+        </div>
+    {% endif %}
+
+    <!-- feedback section -->
+    <div class="feedback-section" style="margin-top: 2rem;">
+        <h2>⭐ Ratings & Feedback</h2>
+        
+        <!-- add feedback form -->
+        {% if current_user.is_authenticated and not current_user.is_admin %}
+            {% if current_user.id != listing.user_id %}
+                {% if not user_has_reviewed %}
+                    <div class="form-container" style="max-width: 100%; margin: 1rem 0;">
+                        <h3>Leave Your Feedback</h3>
+                        <form method="POST" action="{{ url_for('add_feedback', id=listing.id) }}">
+                            <div class="form-group">
+                                <label for="rating">Rating</label>
+                                <select id="rating" name="rating" required style="width: 100%;">
+                                    <option value="">Select a rating</option>
+                                    <option value="5">⭐⭐⭐⭐⭐ (5) - Excellent</option>
+                                    <option value="4">⭐⭐⭐⭐ (4) - Very Good</option>
+                                    <option value="3">⭐⭐⭐ (3) - Good</option>
+                                    <option value="2">⭐⭐ (2) - Fair</option>
+                                    <option value="1">⭐ (1) - Poor</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="comment">Comment (Optional)</label>
+                                <textarea id="comment" name="comment" placeholder="Share your experience..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div style="background: #e8f5e9; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                        ✅ You have already submitted feedback for this listing.
+                    </div>
+                {% endif %}
+            {% else %}
+                <div style="background: #f5f5f5; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                    ℹ️ This is your listing. You cannot review your own listing.
+                </div>
+            {% endif %}
+        {% elif not current_user.is_authenticated %}
+            <div style="background: #f5f5f5; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                <a href="{{ url_for('login') }}">Login</a> to leave feedback.
+            </div>
+        {% endif %}
+
+        <!-- display feedbacks -->
+        <div class="feedbacks-list" style="margin-top: 1.5rem;">
+            {% if listing.feedbacks %}
+                {% for feedback in listing.feedbacks %}
+                    <div class="feedback-card" style="background: var(--card-background); padding: 1.5rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow); margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <div>
+                                <strong>
+                                    <a href="{{ url_for('user_profile', id=feedback.reviewer.id) }}">{{ feedback.reviewer.username }}</a>
+                                </strong>
+                                <span style="color: var(--text-secondary); font-size: 0.9rem;">
+                                    • {{ feedback.created_at.strftime('%b %d, %Y') }}
+                                </span>
+                            </div>
+                            <div>
+                                {% for i in range(feedback.rating) %}⭐{% endfor %}
+                            </div>
+                        </div>
+                        {% if feedback.comment %}
+                            <p style="margin-top: 0.5rem;">{{ feedback.comment }}</p>
+                        {% endif %}
+                        
+                        {% if current_user.is_authenticated %}
+                            {% if current_user.is_admin or (not current_user.is_admin and current_user.id == feedback.reviewer_id) %}
+                                <div style="margin-top: 0.5rem;">
+                                    <a href="{{ url_for('delete_feedback', id=feedback.id) }}" 
+                                       style="color: var(--error-color); font-size: 0.85rem;"
+                                       onclick="return confirm('Are you sure you want to delete this feedback?');">
+                                        🗑️ Delete
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="color: var(--text-secondary); text-align: center; padding: 2rem;">No feedback yet. Be the first to leave a review!</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

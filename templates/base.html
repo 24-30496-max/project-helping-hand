@@ -1,0 +1,73 @@
+<! DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}The Helping Hand{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="{{ url_for('home') }}" class="logo">
+                <span>🤝</span> The Helping Hand
+            </a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('listings') }}">Browse Listings</a></li>
+                {% if current_user. is_authenticated %}
+                    {% if current_user. is_admin %}
+                        <!-- admin navigation -->
+                        <li><a href="{{ url_for('admin_dashboard') }}">🛠️ Admin Dashboard</a></li>
+                        <li><a href="{{ url_for('logout') }}">Logout ({{ current_user. username }})</a></li>
+                    {% else %}
+                        <!-- regular user navigation -->
+                        {% if current_user. is_profile_complete %}
+                            <li><a href="{{ url_for('create_listing') }}">Create Listing</a></li>
+                            <li><a href="{{ url_for('my_listings') }}">My Listings</a></li>
+                            <li>
+                                <a href="{{ url_for('notifications') }}" class="notification-bell">
+                                    🔔
+                                    {% if current_user. unread_notification_count > 0 %}
+                                        <span class="notification-badge">{{ current_user.unread_notification_count }}</span>
+                                    {% endif %}
+                                </a>
+                            </li>
+                            <li><a href="{{ url_for('user_profile', id=current_user.id) }}">👤 {{ current_user.full_name }}</a></li>
+                        {% else %}
+                            <li><a href="{{ url_for('complete_profile') }}">Complete Profile</a></li>
+                        {% endif %}
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% endif %}
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- main content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- footer -->
+    <footer class="footer">
+        <p>2025 The Helping Hand | Connecting Communities Through Skills and Resources</p>
+        <p>SDG 8 • SDG 11 • SDG 12</p>
+    </footer>
+</body>
+</html>

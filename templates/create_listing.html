@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Listing - The Helping Hand{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="form-container" style="max-width: 600px;">
+        <h2>➕ Create a New Listing</h2>
+        <form method="POST" action="{{ url_for('create_listing') }}">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title">
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <option value="Skills & Services">Skills & Services</option>
+                    <option value="Items & Resources">Items & Resources</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="listing_type">Type</label>
+                <select id="listing_type" name="listing_type" required>
+                    <option value="">Are you offering or requesting?</option>
+                    <option value="Offering">Offering</option>
+                    <option value="Requesting">Requesting</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="location">Location (Optional)</label>
+                <input type="text" id="location" name="location">
+            </div>
+            <div class="form-group">
+                <label for="tags">Tags (Optional)</label>
+                <input type="text" id="tags" name="tags">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Create Listing</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

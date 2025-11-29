@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - The Helping Hand{% endblock %}
+
+{% block content %}
+<!-- hero section -->
+<section class="hero">
+    <h1>🤝 The Helping Hand</h1>
+    <p>Strengthen your community by connecting with neighbors who can offer or need services and items. Share skills, barter resources, and build sustainable neighborhoods together.</p>
+    <div class="cta-buttons">
+        <a href="{{ url_for('listings') }}" class="btn btn-primary">Browse Listings</a>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('create_listing') }}" class="btn btn-secondary">Create a Listing</a>
+        {% else %}
+            <a href="{{ url_for('register') }}" class="btn btn-secondary">Join Our Community</a>
+        {% endif %}
+    </div>
+</section>
+
+<!-- SDG Section -->
+<section class="sdg-section">
+    <div class="section-title">
+        <h2>Supporting Sustainable Development Goals</h2>
+        <p>Our platform contributes to a better, more sustainable future</p>
+    </div>
+    <div class="sdg-grid">
+        <div class="sdg-card sdg-11">
+            <h3>SDG 11</h3>
+            <p>Sustainable Cities and Communities</p>
+        </div>
+        <div class="sdg-card sdg-8">
+            <h3>SDG 8</h3>
+            <p>Decent Work and Economic Growth</p>
+        </div>
+        <div class="sdg-card sdg-12">
+            <h3>SDG 12</h3>
+            <p>Responsible Consumption and Production</p>
+        </div>
+    </div>
+</section>
+
+<!-- recent listings -->
+<section class="container">
+    <div class="section-title">
+        <h2>Recent Listings</h2>
+        <p>Discover what your community has to offer</p>
+    </div>
+    
+    {% if listings %}
+        <div class="cards-grid">
+            {% for listing in listings %}
+                <div class="card">
+                    <div class="card-header">
+                        <span class="category">{{ listing.category }}</span>
+                        <span class="type">{{ listing.listing_type }}</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>{{ listing.title }}</h3>
+                        <p>{{ listing.description[:100] }}{% if listing.description|length > 100 %}...{% endif %}</p>
+                        <a href="{{ url_for('listing_detail', id=listing.id) }}" class="btn btn-primary">View Details</a>
+                    </div>
+                    <div class="card-footer">
+                        <span class="author">By {{ listing.author.username }}</span>
+                        {% if listing.location %}
+                            <span class="location">📍 {{ listing.location }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="{{ url_for('listings') }}" class="btn btn-secondary">View All Listings</a>
+        </div>
+    {% else %}
+        <p style="text-align: center; color: var(--text-secondary);">No listings yet. Be the first to create one!</p>
+    {% endif %}
+</section>
+{% endblock %}

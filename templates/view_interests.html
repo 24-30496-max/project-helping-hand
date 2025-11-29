@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Interests - {{ listing.title }} - The Helping Hand{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="section-title">
+        <h2>People Interested in Your Listing</h2>
+        <p>Listing: <a href="{{ url_for('listing_detail', id=listing. id) }}">{{ listing.title }}</a></p>
+    </div>
+
+    <a href="{{ url_for('listing_detail', id=listing.id) }}" class="btn btn-secondary" style="margin-bottom: 1. 5rem;">← Back to Listing</a>
+
+    {% if interests %}
+        <div class="interests-list">
+            {% for interest in interests %}
+                <div class="interest-card" style="background: var(--card-background); padding: 1.5rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow); margin-bottom: 1rem;">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                        <!-- user info -->
+                        <div>
+                            <h3 style="margin: 0;">
+                                <a href="{{ url_for('user_profile', id=interest.interested_user. id) }}">
+                                    👤 {{ interest. interested_user.full_name }}
+                                </a>
+                            </h3>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0. 25rem 0;">
+                                @{{ interest.interested_user.username }}
+                            </p>
+                            <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0.5rem 0;">
+                                Expressed interest on {{ interest.created_at.strftime('%B %d, %Y at %I:%M %p') }}
+                            </p>
+                            
+                            {% if interest.message %}
+                                <div style="background: #f5f5f5; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                                    <strong>Message:</strong>
+                                    <p style="margin: 0. 5rem 0 0 0;">{{ interest.message }}</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- contact info -->
+                        <div style="background: #e8f5e9; padding: 1rem; border-radius: 8px;">
+                            <h4 style="margin: 0 0 1rem 0; color: var(--primary-dark);">📬 Contact Information</h4>
+                            
+                            <div style="margin-bottom: 0.75rem;">
+                                <p style="margin: 0; color: var(--text-secondary); font-size: 0.8rem;">Email</p>
+                                <p style="margin: 0;"><a href="mailto:{{ interest.interested_user.email }}">{{ interest.interested_user.email }}</a></p>
+                            </div>
+                            
+                            {% if interest.interested_user.phone_number %}
+                            <div style="margin-bottom: 0.75rem;">
+                                <p style="margin: 0; color: var(--text-secondary); font-size: 0.8rem;">Phone</p>
+                                <p style="margin: 0;"><a href="tel:{{ interest. interested_user.phone_number }}">{{ interest.interested_user.phone_number }}</a></p>
+                            </div>
+                            {% endif %}
+                            
+                            {% if interest.interested_user. location %}
+                            <div>
+                                <p style="margin: 0; color: var(--text-secondary); font-size: 0.8rem;">Location</p>
+                                <p style="margin: 0;">{{ interest.interested_user.location }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="text-align: center; padding: 3rem; background: var(--card-background); border-radius: var(--border-radius);">
+            <p style="font-size: 3rem; margin-bottom: 1rem;">💡</p>
+            <p style="color: var(--text-secondary);">No one has shown interest in this listing yet.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

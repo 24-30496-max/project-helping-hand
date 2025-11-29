@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Register - The Helping Hand{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="form-container">
+        <h2>🤝 Join Our Community</h2>
+        <form method="POST" action="{{ url_for('register') }}">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required placeholder="Choose a username">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Create a password">
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn primary">Create Account</button>
+                <a href="{{ url_for('login') }}" class="btn secondary">Already have an account? Login</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
