@@ -16,7 +16,7 @@
             <option value="">All Categories</option>
             <option value="Skills & Services" {% if request.args.get('category') == 'Skills & Services' %}selected{% endif %}>Skills & Services</option>
             <option value="Items & Resources" {% if request.args.get('category') == 'Items & Resources' %}selected{% endif %}>Items & Resources</option>
-        </select>
+        </select> 
         <select name="type">
             <option value="">All Types</option>
             <option value="Offering" {% if request.args.get('type') == 'Offering' %}selected{% endif %}>Offering</option>

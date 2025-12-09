@@ -18,7 +18,7 @@
             
             {% if current_user.is_authenticated and not current_user.is_admin and current_user.id == user.id %}
                 <a href="{{ url_for('edit_profile') }}" class="btn btn-secondary">✏️ Edit Profile</a>
-            {% endif %}
+            {% endif %} 
         </div>
         
         <!-- user stats -->

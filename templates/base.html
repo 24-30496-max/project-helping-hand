@@ -16,7 +16,7 @@
             <ul class="nav-links">
                 <li><a href="{{ url_for('home') }}">Home</a></li>
                 <li><a href="{{ url_for('listings') }}">Browse Listings</a></li>
-                {% if current_user. is_authenticated %}
+                {% if current_user. is_authenticated %} 
                     {% if current_user. is_admin %}
                         <!-- admin navigation -->
                         <li><a href="{{ url_for('admin_dashboard') }}">🛠️ Admin Dashboard</a></li>

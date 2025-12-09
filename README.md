@@ -10,7 +10,7 @@
 ## Introduction
 Our project, **The Helping Hand**, aims to strengthen communities by connecting people who can offer or need services and items within their local area. Through this web-based platform built using the Python programming language, users can post listings for skills such as tutoring or repairs, as well as items like tools or books to share, barter, or give away. This promotes collaboration, reduces waste, and helps build stronger, more sustainable neighborhoods.
 
-## SDG Alignment
+## SDG Alignment 
 ### 1. Sustainable Cities and Communities (SDG 11)
 This project directly supports **Target 11.A** by strengthening the social and economic fabric of the local community. It creates a "circular economy" where resources (both human skills and physical items) are kept in circulation locally. This strengthens social bonds by connecting neighbors, builds economic resilience, and fosters a sustainable community.
 
