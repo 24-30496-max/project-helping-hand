@@ -87,6 +87,29 @@ a:hover {
     color: white;
 }
 
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.logo-text {
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
 /* hero section */
 .hero {
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));

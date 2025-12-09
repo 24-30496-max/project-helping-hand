@@ -11,13 +11,14 @@
     <nav class="navbar">
         <div class="container">
             <a href="{{ url_for('home') }}" class="logo">
-                <span>🤝</span> The Helping Hand
+                <img src="{{ url_for('static', filename='images/helping-hand-logo.png') }}" alt="The Helping Hand logo" class="logo-img">
+                <span class="logo-text">The Helping Hand</span>
             </a>
             <ul class="nav-links">
                 <li><a href="{{ url_for('home') }}">Home</a></li>
                 <li><a href="{{ url_for('listings') }}">Browse Listings</a></li>
-                {% if current_user. is_authenticated %} 
-                    {% if current_user. is_admin %}
+                {% if current_user.is_authenticated %} 
+                    {% if current_user.is_admin %}
                         <!-- admin navigation -->
                         <li><a href="{{ url_for('admin_dashboard') }}">🛠️ Admin Dashboard</a></li>
                         <li><a href="{{ url_for('logout') }}">Logout ({{ current_user. username }})</a></li>
