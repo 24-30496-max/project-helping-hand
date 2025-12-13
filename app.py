@@ -254,9 +254,9 @@ def create_admin_accounts():
                 password=admin_data['password']
             )
             db.session.add(new_admin)
-            print(f"Admin account created: {admin_data['username']}")
+            app.logger.info(f"Admin account created: {admin_data['username']}")
         else:
-            print(f"Admin account already exists: {admin_data['username']}")
+            app.logger.debug(f"Admin account already exists: {admin_data['username']}")
     
     db.session.commit()
 
@@ -821,4 +821,4 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
         create_admin_accounts()
-    app.run(host='192.168.193.176', port=5000, debug=True)
+    app.run(host='127.0.0.1', port=5000, debug=True)
