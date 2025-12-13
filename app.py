@@ -242,8 +242,8 @@ def create_admin_accounts():
     """Create admin accounts defined by the programmer."""
     ADMIN_ACCOUNTS = [
         {'username': 'admin', 'password': 'admin'},
-        {'username': 'path', 'password':'helpinghand'}
-        {'username': 'dwight', 'passowrd': 'finalproj'}
+        {'username': 'path', 'password':'helpinghand'},
+        {'username': 'dwight', 'password': 'finalproj'}
     ]
     
     for admin_data in ADMIN_ACCOUNTS:
