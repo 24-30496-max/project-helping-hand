@@ -246,6 +246,7 @@ def create_admin_accounts():
     ADMIN_ACCOUNTS = [
         {'username': 'admin', 'password': 'admin'},
         {'username': 'path', 'password':'helpinghand'}
+        {'username': 'dwight', 'passowrd': 'finalproj'}
     ]
     
     for admin_data in ADMIN_ACCOUNTS:
