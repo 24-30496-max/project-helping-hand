@@ -880,4 +880,4 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
         create_admin_accounts()
-    app.run(host="192.168.193.176", port=5000, debug=True)
+    app.run(host="127.0.0.1", port=5000, debug=True)
