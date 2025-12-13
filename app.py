@@ -33,7 +33,6 @@ def profile_required(f):
 # models/
 
 class Admin(UserMixin, db.Model):
-    """Admins can only be created by programmers in the code."""
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
@@ -52,14 +51,12 @@ class Admin(UserMixin, db.Model):
 
 
 class User(UserMixin, db.Model):
-    """Regular user accounts - created through the registration page."""
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
-    # Extended Profile Fields (Mandatory after first login)
     first_name = db.Column(db.String(80), nullable=True)
     last_name = db.Column(db.String(80), nullable=True)
     phone_number = db.Column(db.String(20), nullable=True)
@@ -824,4 +821,4 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
         create_admin_accounts()
-    app.run(debug=True)
+    app.run(host='192.168.193.176', port=5000, debug=True)
