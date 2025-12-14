@@ -1,0 +1,185 @@
+"id","message","notification_type","is_read","created_at","recipient_id","sender_id","listing_id"
+1,"🔔 user 1 (@user1) is interested in your listing: ""Repair""
+
+📧 Contact: user1@gmail.com
+📱 Phone: 09999999999","interest",True,"2025-11-26 02:28:58.899182",1,2,1
+2,"🔔 Patricia Rose Gonzales (@patty) is interested in your listing: ""Repair Bike""
+
+Message: ""I'm interested""
+
+📧 Contact: 24-35057@g.batstate-u.edu.ph
+📱 Phone: 09458529442","interest",True,"2025-12-13 03:36:31.436396",3,5,6
+3,"🔔 rhey tenorio (@Tenors131) is interested in your listing: ""Free Books""
+
+📧 Contact: jhonrheytenorio300@gmail.com
+📱 Phone: 09111100099","interest",True,"2025-12-13 03:44:48.194401",3,6,5
+4,"📝 rhey tenorio (@Tenors131) left a 5-star review on your listing: ""Free Books""
+
+Rating: ⭐⭐⭐⭐⭐
+Comment: ""Thank you so much pooooo... All good conditon""","feedback",True,"2025-12-13 03:45:49.743817",3,6,5
+5,"🔔 Patricia Rose Gonzales (@patty) is interested in your listing: ""Looking For Math Tutor""
+
+📧 Contact: 24-35057@g.batstate-u.edu.ph
+📱 Phone: 09458529442","interest",True,"2025-12-13 03:46:54.021533",3,5,7
+6,"🔔 Dwight Christian Buno (@DWIGHTTYYI) is interested in your listing: ""Looking For Math Tutor""
+
+Message: ""yes""
+
+📧 Contact: 24-32880@g.batstate-u.edu.ph
+📱 Phone: 09467483898","interest",True,"2025-12-13 03:47:12.836432",3,4,7
+7,"🔔 rhey tenorio (@Tenors131) is interested in your listing: ""Tutoring or Homework Help""
+
+Message: ""i can help pooo""
+
+📧 Contact: jhonrheytenorio300@gmail.com
+📱 Phone: 09111100099","interest",False,"2025-12-13 03:47:22.255455",5,6,8
+8,"📝 Dwight Christian Buno (@DWIGHTTYYI) left a 4-star review on your listing: ""Looking For Math Tutor""
+
+Rating: ⭐⭐⭐⭐
+Comment: ""reliable tutor""","feedback",True,"2025-12-13 03:47:31.857749",3,4,7
+9,"📝 rhey tenorio (@Tenors131) left a 5-star review on your listing: ""Tutoring or Homework Help""
+
+Rating: ⭐⭐⭐⭐⭐
+Comment: ""smooth transaction""","feedback",False,"2025-12-13 03:48:13.614752",5,6,8
+10,"🔔 rhey tenorio (@Tenors131) is interested in your listing: ""Repair Bike""
+
+📧 Contact: jhonrheytenorio300@gmail.com
+📱 Phone: 09111100099","interest",True,"2025-12-13 03:48:48.361781",3,6,6
+11,"🔔 Patricia Rose Gonzales (@patty) is interested in your listing: ""Phone for Sale""
+
+📧 Contact: 24-35057@g.batstate-u.edu.ph
+📱 Phone: 09458529442","interest",True,"2025-12-13 03:57:51.595102",3,5,15
+12,"🔔 Patricia Rose Gonzales (@patty) is interested in your listing: ""baby sitter""
+
+Message: ""me po""
+
+📧 Contact: 24-35057@g.batstate-u.edu.ph
+📱 Phone: 09458529442","interest",True,"2025-12-13 04:14:58.102971",3,5,35
+13,"📝 Patricia Rose Gonzales (@patty) left a 5-star review on your listing: ""baby sitter""
+
+Rating: ⭐⭐⭐⭐⭐","feedback",True,"2025-12-13 04:21:59.086993",3,5,35
+14,"📝 Patricia Rose Gonzales (@patty) left a 5-star review on your listing: ""Salon Service""
+
+Rating: ⭐⭐⭐⭐⭐","feedback",True,"2025-12-13 04:22:15.910756",4,5,32
+15,"🔔 Patricia Rose Gonzales (@patty) is interested in your listing: ""Laptop For Sale""
+
+📧 Contact: 24-35057@g.batstate-u.edu.ph
+📱 Phone: 09458529442","interest",True,"2025-12-13 04:22:37.57949",3,5,27
+16,"🔔 Patricia Rose Gonzales (@patty) is interested in your listing: ""Dog Trainer""
+
+📧 Contact: 24-35057@g.batstate-u.edu.ph
+📱 Phone: 09458529442","interest",True,"2025-12-13 04:23:20.152612",4,5,28
+17,"🔔 Jhon Rhey Tenorio (@Jhonrhey) is interested in your listing: ""Teaching Skills""
+
+📧 Contact: jhonrheytenorio@gmail.com
+📱 Phone: 09705747613","interest",True,"2025-12-13 04:23:28.856017",5,3,36
+18,"🔔 Jhon Rhey Tenorio (@Jhonrhey) is interested in your listing: ""Spa Massage""
+
+📧 Contact: jhonrheytenorio@gmail.com
+📱 Phone: 09705747613","interest",True,"2025-12-13 04:23:49.18079",4,3,33
+19,"🔔 Jhon Rhey Tenorio (@Jhonrhey) is interested in your listing: ""Home Renovation""
+
+📧 Contact: jhonrheytenorio@gmail.com
+📱 Phone: 09705747613","interest",True,"2025-12-13 04:25:27.634064",4,3,9
+20,"🔔 Dwight Christian Buno (@DWIGHTTYYI) is interested in your listing: ""Teaching Skills""
+
+📧 Contact: 24-32880@g.batstate-u.edu.ph
+📱 Phone: 09467483898","interest",False,"2025-12-13 04:29:13.972588",5,4,36
+21,"🔔 Dwight Christian Buno (@DWIGHTTYYI) is interested in your listing: ""baby sitter""
+
+📧 Contact: 24-32880@g.batstate-u.edu.ph
+📱 Phone: 09467483898","interest",True,"2025-12-13 04:29:21.14621",3,4,35
+22,"🔔 Dwight Christian Buno (@DWIGHTTYYI) is interested in your listing: ""Tree Planting and Community Gardening""
+
+📧 Contact: 24-32880@g.batstate-u.edu.ph
+📱 Phone: 09467483898","interest",False,"2025-12-13 04:29:32.639084",5,4,34
+23,"🔔 Dwight Christian Buno (@DWIGHTTYYI) is interested in your listing: ""Proper Waste Segregation and Recycling""
+
+📧 Contact: 24-32880@g.batstate-u.edu.ph
+📱 Phone: 09467483898","interest",False,"2025-12-13 04:29:44.084392",5,4,31
+24,"🔔 Dwight Christian Buno (@DWIGHTTYYI) is interested in your listing: ""Helping during Emergency Drills""
+
+📧 Contact: 24-32880@g.batstate-u.edu.ph
+📱 Phone: 09467483898","interest",False,"2025-12-13 04:30:28.578569",5,4,26
+25,"🔔 Jhon Rhey Tenorio (@Jhonrhey) is interested in your listing: ""Proper Waste Segregation and Recycling""
+
+📧 Contact: jhonrheytenorio@gmail.com
+📱 Phone: 09705747613","interest",False,"2025-12-13 06:36:32.63658",5,3,31
+26,"🔔 Jhon Rhey Tenorio (@Jhonrhey) is interested in your listing: ""Helping during Emergency Drills""
+
+📧 Contact: jhonrheytenorio@gmail.com
+📱 Phone: 09705747613","interest",False,"2025-12-13 06:36:43.421892",5,3,26
+27,"🔔 Jhon Rhey Tenorio (@Jhonrhey) is interested in your listing: ""Repair""
+
+📧 Contact: jhonrheytenorio@gmail.com
+📱 Phone: 09705747613","interest",False,"2025-12-13 06:36:56.119677",1,3,1
+28,"🔔 Jhon Rhey Tenorio (@Jhonrhey) is interested in your listing: ""Discrete Mathematics Notes""
+
+📧 Contact: jhonrheytenorio@gmail.com
+📱 Phone: 09705747613","interest",False,"2025-12-13 06:37:09.942474",5,3,29
+29,"🔔 Jhon Rhey Tenorio (@Jhonrhey) is interested in your listing: ""Gardening Services""
+
+📧 Contact: jhonrheytenorio@gmail.com
+📱 Phone: 09705747613","interest",False,"2025-12-13 06:37:20.286169",5,3,16
+30,"🔔 Patricia Rose Gonzales (@patty) is interested in your listing: ""Spa Massage""
+
+📧 Contact: 24-35057@g.batstate-u.edu.ph
+📱 Phone: 09458529442","interest",False,"2025-12-13 06:37:23.856315",4,5,33
+31,"🔔 Jhon Rhey Tenorio (@Jhonrhey) is interested in your listing: ""House For Rent""
+
+📧 Contact: jhonrheytenorio@gmail.com
+📱 Phone: 09705747613","interest",False,"2025-12-13 06:37:31.471297",4,3,18
+32,"🔔 Patricia Rose Gonzales (@patty) is interested in your listing: ""Salon Service""
+
+📧 Contact: 24-35057@g.batstate-u.edu.ph
+📱 Phone: 09458529442","interest",False,"2025-12-13 06:37:38.610436",4,5,32
+33,"📝 Dwight Christian Buno (@DWIGHTTYYI) left a 3-star review on your listing: ""baby sitter""
+
+Rating: ⭐⭐⭐
+Comment: ""magaling mag alaga""","feedback",True,"2025-12-13 06:38:32.009383",3,4,35
+34,"📝 Jhon Rhey Tenorio (@Jhonrhey) left a 5-star review on your listing: ""Helping during Emergency Drills""
+
+Rating: ⭐⭐⭐⭐⭐
+Comment: ""very nice""","feedback",False,"2025-12-13 06:39:24.386431",5,3,26
+35,"🔔 Dwight Christian Buno (@DWIGHTTYYI) is interested in your listing: ""Distributing Flyers or Information Materials""
+
+📧 Contact: 24-32880@g.batstate-u.edu.ph
+📱 Phone: 09467483898","interest",False,"2025-12-13 06:39:41.086698",5,4,25
+36,"🔔 Jhon Rhey Tenorio (@Jhonrhey) is interested in your listing: ""Eatery""
+
+📧 Contact: jhonrheytenorio@gmail.com
+📱 Phone: 09705747613","interest",False,"2025-12-13 06:39:50.254668",4,3,24
+37,"📝 Dwight Christian Buno (@DWIGHTTYYI) left a 5-star review on your listing: ""Distributing Flyers or Information Materials""
+
+Rating: ⭐⭐⭐⭐⭐
+Comment: ""very helpful""","feedback",False,"2025-12-13 06:40:08.211815",5,4,25
+38,"📝 Jhon Rhey Tenorio (@Jhonrhey) left a 5-star review on your listing: ""Eatery""
+
+Rating: ⭐⭐⭐⭐⭐
+Comment: ""grabe ang sarap naman pooo""","feedback",False,"2025-12-13 06:40:12.486658",4,3,24
+39,"📝 Jhon Rhey Tenorio (@Jhonrhey) left a 1-star review on your listing: ""Free clothes""
+
+Rating: ⭐
+Comment: ""may putok po""","feedback",False,"2025-12-13 06:40:47.63033",5,3,10
+40,"🔔 Jhon Rhey Tenorio (@Jhonrhey) is interested in your listing: ""Van For Rent""
+
+📧 Contact: jhonrheytenorio@gmail.com
+📱 Phone: 09705747613","interest",False,"2025-12-13 06:41:07.165038",4,3,21
+41,"📝 Jhon Rhey Tenorio (@Jhonrhey) left a 5-star review on your listing: ""Van For Rent""
+
+Rating: ⭐⭐⭐⭐⭐
+Comment: ""ang bait po nung may ariii""","feedback",False,"2025-12-13 06:41:31.08819",4,3,21
+42,"🔔 Andrei Gutierrez (@andrei) is interested in your listing: ""Looking for Buldak""
+
+Message: ""❣️❣️❣️""
+
+📧 Contact: andreigutierrez10@gmail.com
+📱 Phone: 09666858166","interest",True,"2025-12-13 06:42:04.568936",3,1,30
+43,"🔔 Jhon Rhey Tenorio (@Jhonrhey) is interested in your listing: ""Dog Trainer""
+
+📧 Contact: jhonrheytenorio@gmail.com
+📱 Phone: 09705747613","interest",False,"2025-12-13 06:42:05.157146",4,3,28
+44,"📝 Jhon Rhey Tenorio (@Jhonrhey) left a 4-star review on your listing: ""Dog Trainer""
+
+Rating: ⭐⭐⭐⭐
+Comment: ""makulit po yung aso and and cute""","feedback",False,"2025-12-13 06:42:27.895027",4,3,28

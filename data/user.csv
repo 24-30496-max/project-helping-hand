@@ -1,0 +1,7 @@
+"id","username","email","password","created_at","first_name","last_name","phone_number","address","city","bio","profile_completed","profile_completed_at"
+1,"andrei","andreigutierrez10@gmail.com","andrei","2025-11-26 02:14:56.971063","Andrei","Gutierrez","09666858166","Mayuro, Rosario","Batangas","BSIT Student",True,"2025-11-26 02:18:25.896409"
+2,"user1","user1@gmail.com","user1","2025-11-26 02:25:57.874005","user","1","09999999999","","Rosario","",True,"2025-11-26 02:26:34.030879"
+3,"Jhonrhey","jhonrheytenorio@gmail.com","Jhonrhey131","2025-12-13 02:55:43.742882","Jhon Rhey","Tenorio","09705747613","","Lipa City","",True,"2025-12-13 02:57:02.033607"
+4,"DWIGHTTYYI","24-32880@g.batstate-u.edu.ph","12345","2025-12-13 03:26:06.978558","Dwight Christian","Buno","09467483898","Banaybanay, Lipa City","Lipa","Student",True,"2025-12-13 03:28:22.960744"
+5,"patty","24-35057@g.batstate-u.edu.ph","TitaPatInBSU2425","2025-12-13 03:30:23.542895","Patricia Rose","Gonzales","09458529442","PUROK IV-B NAMUNGA SOUTH, ROSARIO, BATANGAS","ROSARIO","",True,"2025-12-13 03:31:43.32107"
+6,"Tenors131","jhonrheytenorio300@gmail.com","tenorio131","2025-12-13 03:37:16.214779","rhey","tenorio","09111100099","Purok3, Namunga Rosario","Rosario","Loving youuuu",True,"2025-12-13 03:40:26.982103"
